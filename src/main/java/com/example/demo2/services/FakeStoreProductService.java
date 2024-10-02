@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,7 +46,18 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public List<Product> getProducts() {
-        return List.of();
+    public List<Product> getAllProducts() {
+//         List<FakeStoreProductServiceDtos> fakeStoreProductServiceDtos =
+//                 restTemplate.getForObject("https://fakestoreapi.com/products",List<FakeStoreProductServiceDtos>.class);
+        FakeStoreProductServiceDtos [] fakeStoreProductServiceDtos =
+                restTemplate.getForObject("https://fakestoreapi.com/products",FakeStoreProductServiceDtos[].class);
+         if(fakeStoreProductServiceDtos == null){
+             return null;
+         }
+        List<Product>response = new ArrayList<Product>();
+        for (FakeStoreProductServiceDtos dto : fakeStoreProductServiceDtos) {
+            response.add(convertFakeProductDtoToProduct(dto));
+        }
+        return response;
     }
 }
