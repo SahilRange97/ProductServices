@@ -10,4 +10,7 @@ public class Category {
     @Getter
     @Setter
     private String title;
+    @Getter
+    @Setter
+    private String description;
 }

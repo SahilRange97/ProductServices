@@ -3,10 +3,7 @@ package com.example.demo2.Controllers;
 
 import com.example.demo2.Model.Product;
 import com.example.demo2.services.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,12 +16,17 @@ public class ProductController {
         this.productService = productService;
     }
     @GetMapping ("/{id}")
-    Product getProductById(@PathVariable("id") long id) {
+   public Product getProductById(@PathVariable("id") long id) {
         return productService.getProductById(id);
    }
    @GetMapping("")
-   List<Product> getAllProducts() {
+   public List<Product> getAllProducts() {
         return  productService.getAllProducts();
+   }
+
+   @PutMapping("/{id}")
+   public Product replaceProductById(@PathVariable long id , @RequestBody Product product) {
+        return productService.replaceProductById(id, product);
    }
 //    @GetMapping("/{name}")
 //    public String sayHello(@PathVariable String name) {
